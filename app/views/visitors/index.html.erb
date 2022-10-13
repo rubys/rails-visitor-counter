@@ -1,14 +1,9 @@
-<div class="w-full">
-  <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-  <% end %>
+<%= turbo_stream_from 'counter' %>
 
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Visitors</h1>
-    <%= link_to 'New visitor', new_visitor_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
-  </div>
+<div class="absolute top-0 left-0 h-screen w-screen mx-auto mb-3 bg-navy px-20 py-14 rounded-[20vh] flex flex-row items-center justify-center" style="background-color:rgb(36 24 91)">
+  <img src="https://fly.io/static/images/brand/brandmark-light.svg" class="h-[50vh]" style="margin-top: -15px" alt="The monochrome white Fly.io brandmark on a navy background" srcset="">
 
-  <div id="visitors" class="min-w-full">
-    <%= render @visitors %>
+  <div class="text-white" style="font-size: 40vh; padding: 10vh" data-controller="counter">
+    <%= render "counter", visitor: @visitor %>
   </div>
 </div>

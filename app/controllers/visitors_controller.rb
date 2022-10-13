@@ -3,7 +3,13 @@ class VisitorsController < ApplicationController
 
   # GET /visitors or /visitors.json
   def index
-    @visitors = Visitor.all
+    @visitor = Visitor.find_or_create_by(id: 1)
+
+    @visitor.update!(
+      counter: (@visitor.counter || 0) + (params[:count] || 1).to_i
+    )
+
+    @visitor.broadcast_replace_later_to 'counter', partial: 'visitors/counter'
   end
 
   # GET /visitors/1 or /visitors/1.json
