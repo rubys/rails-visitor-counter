@@ -73,5 +73,3 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
-
-gem "fly.io-rails", "~> 0.1.8", :git => "https://github.com/rubys/fly.io-rails.git"
