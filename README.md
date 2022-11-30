@@ -1,4 +1,14 @@
-# Reproduction instructions
+# Introduction
+
+The context is that fly.io’s approach of every framework uses a Dockerfile and a toml file is great for system administrators, polyglots, and Rails developers who are comfortable with Dockerfiles, or at least Debian. What that leaves behind is Rails developers who spend most of their time in an IDE on Macs or Windows; which frankly is most of them.
+
+Many of these people would prefer to use buildpacks or some other method than Dockerfiles, and when they have problems with those approaches instead of reporting the problems to the maintainers of the buildpack they report the problem to us.
+
+I’d prefer an approach where from a fly.io platform point of view everything is Dockerfiles and toml files and from a developer point of view everything is Rails and Ruby.
+
+In order to run this make sure you have flyctl version v0.0.433 or later as I added a flag to allow dockerignore files to be provided at deploy time.
+
+---
 
 ## Part one, a simple visitor counter
 
@@ -20,7 +30,10 @@ Edit `app/controllers/visitors_controller.rb`:
 ```
   # GET /visitors or /visitors.json
   def index
-    @visitor = Visitor.find_or_create_by(id: 1) 
+    @visitor = Visitor.find_or_create_by(id: 1)
+    @visitor.counter ||= 0
+    @visitor.counter += 1
+    @visitor.save!
 
     @visitor.update!(
       counter: (@visitor.counter || 0) + 1
