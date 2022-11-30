@@ -191,6 +191,8 @@ Deploy your change:
 bin/rails deploy
 ```
 
+Note that this time you are likely to see `502 Bad Gateway`.  That's because nginx typically starts faster than Rails and at this point this is just a demo.  Don't worry, Rails will start in a few seconds and things will work once it starts.  If you check the logs you will often see a similar problem where anycable go starts faster than anycable rpc, but that also corrects itself.
+
 Once again, gems are installed and this time at runtime multiple processes are run, including one additional process (nginx) to transparently route the websocket to anycable.
 All on a single 256MB fly machine.  The details are mess, but you don't have to worry about them.
 
