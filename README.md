@@ -42,8 +42,6 @@ Replace `app/views/visitors/index.html.erb` with:
 </div>
 ```
 
-Change `root`.
-
 Define the root path to be the visitors index page:
 
 Edit `config/routes.rb`:
@@ -93,7 +91,10 @@ bin/rails deploy
 ```
 
 At this point, a `pg` gem is installed, a `postgres` database is created, and a
-secret is set.  Again, all without you having to worry about anything.
+secret is set.  Also, there now is a separate release step that will run
+your database migrations before restarting your server.
+
+Again, all without you having to worry about anything.
 
 ---
 
@@ -154,7 +155,7 @@ Deploy your change:
 bin/rails deploy
 ```
 
-At this point, a `redis` gem is installed (if it wasn't already), a `redis` cluster is created if your organization didn't already have one (otherwise that cluster is reused), and a secret is set.
+At this point, a `redis` gem is installed (if it wasn't already), an upstash `redis` cluster is created if your organization didn't already have one (otherwise that cluster is reused), and a secret is set.
 
 Once again, all without you having to worry about anything.
 
@@ -207,3 +208,10 @@ If you want to see the configuration files that actually are used, run the follo
 ```
 bin/rails generate fly:app --eject
 ```
+
+Note: this demo uses fly machines v2, and requires a script (`rails deploy`)
+to build a dockerfile and run the underlying commands and APIs to create
+machines, set secrets, etc.  It is possible to run with nomad (a.k.a. v1) by
+passing `--nomad` on the `bin/rails generate fly:app` command, and while
+this will allow you to run vanilla `fly deploy` the tradeoff is this
+is accomplished by creating a `Dockerfile` and various other artifacts.
