@@ -31,9 +31,6 @@ Edit `app/controllers/visitors_controller.rb`:
   # GET /visitors or /visitors.json
   def index
     @visitor = Visitor.find_or_create_by(id: 1)
-    @visitor.counter ||= 0
-    @visitor.counter += 1
-    @visitor.save!
 
     @visitor.update!(
       counter: (@visitor.counter || 0) + 1
